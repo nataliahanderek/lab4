@@ -1,0 +1,3 @@
+C:/Users/mhand/Desktop/jipp2/laboratorium3/build/CMakeFiles/rebuild_cache.dir
+C:/Users/mhand/Desktop/jipp2/laboratorium3/build/CMakeFiles/test.dir
+C:/Users/mhand/Desktop/jipp2/laboratorium3/build/CMakeFiles/edit_cache.dir
