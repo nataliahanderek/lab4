@@ -141,6 +141,33 @@ test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/build
 .PHONY : test/fast
 
+src/lab3.obj: src/lab3.cpp.obj
+
+.PHONY : src/lab3.obj
+
+# target to build an object file
+src/lab3.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/src/lab3.cpp.obj
+.PHONY : src/lab3.cpp.obj
+
+src/lab3.i: src/lab3.cpp.i
+
+.PHONY : src/lab3.i
+
+# target to preprocess a source file
+src/lab3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/src/lab3.cpp.i
+.PHONY : src/lab3.cpp.i
+
+src/lab3.s: src/lab3.cpp.s
+
+.PHONY : src/lab3.s
+
+# target to generate assembly for a file
+src/lab3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/src/lab3.cpp.s
+.PHONY : src/lab3.cpp.s
+
 src/matrix.obj: src/matrix.cpp.obj
 
 .PHONY : src/matrix.obj
@@ -168,33 +195,6 @@ src/matrix.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/src/matrix.cpp.s
 .PHONY : src/matrix.cpp.s
 
-test/lab3.obj: test/lab3.cpp.obj
-
-.PHONY : test/lab3.obj
-
-# target to build an object file
-test/lab3.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test/lab3.cpp.obj
-.PHONY : test/lab3.cpp.obj
-
-test/lab3.i: test/lab3.cpp.i
-
-.PHONY : test/lab3.i
-
-# target to preprocess a source file
-test/lab3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test/lab3.cpp.i
-.PHONY : test/lab3.cpp.i
-
-test/lab3.s: test/lab3.cpp.s
-
-.PHONY : test/lab3.s
-
-# target to generate assembly for a file
-test/lab3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test/lab3.cpp.s
-.PHONY : test/lab3.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -204,12 +204,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... test
+	@echo ... src/lab3.obj
+	@echo ... src/lab3.i
+	@echo ... src/lab3.s
 	@echo ... src/matrix.obj
 	@echo ... src/matrix.i
 	@echo ... src/matrix.s
-	@echo ... test/lab3.obj
-	@echo ... test/lab3.i
-	@echo ... test/lab3.s
 .PHONY : help
 
 

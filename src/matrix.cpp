@@ -4,9 +4,27 @@
 #include <fstream>
 #include <string>
 #include <string.h>
-#include <matrix.hpp>
+#include <Matrix/matrix.hpp>
 
 using namespace std;
+
+class WrongPoint : public exception {
+    virtual const char *what() const throw() {
+        return "Podales zle wspolrzedne macierzy!";
+    }
+};
+
+class WrongSize : public exception {
+    virtual const char *what() const throw() {
+        return "Podales zly rozmiar macierzy! Rozmiary nie zgadzaja sie!";
+    }
+};
+
+class FileNoOpen : public exception {
+    virtual const char *what() const throw() {
+        return "Plik nie zostal otwarty!";
+    }
+};
 
     matrix::matrix(int n, int m) {
         a = n;
@@ -30,8 +48,7 @@ using namespace std;
 		std::ifstream plik;
 		plik.open(path);
 		if (plik.good() != 0) {
-			std::cout << "Nie otwarto pliku" << std::endl;
-			exit(1);
+			throw FileNoOpen();
 		}
 
 		plik >> a;
@@ -49,28 +66,29 @@ using namespace std;
 
     void matrix::set(int x, int y, double val) {
 
-        if (x > 0 && x <= a && y > 0 && y <= b) {
-            tab[x-1][y-1] = val;
-        } else {
-            cout << "Podales zle argumenty!" << endl;
+        if ((x < 0 || x > a) || (y < 0 || y > b)) {
+
+            throw WrongPoint();
         }
+
+        tab[x-1][y-1] = val;
     }
 
     double matrix::get(int x, int y) {
 
-        if (x > 0 && x <= a && y > 0 && y <= b) {
-             return tab[x-1][y-1];
-        } else {
-            cout << "Podales zle argumenty!" << endl;
-            return 1;
+        if ((x < 0 || x > a) || (y < 0 || y >= b)) {
+             
+            throw WrongPoint();
         }
+
+        return tab[x-1][y-1];
     }
 
     matrix matrix::add(matrix tablica3) {
 
-        if (a != tablica3.rows() || b != tablica3.cols()) {
-            cout << "Nie mozna dodac macierze" << endl;
-            return 1;
+        if ((a != tablica3.rows()) || (b != tablica3.cols())) {
+
+            throw WrongSize();
         }
 
         matrix dodanemacierze(a,b);
@@ -84,9 +102,9 @@ using namespace std;
 
     matrix matrix::substract(matrix tablica3) {
 
-        if (a != tablica3.rows() || b != tablica3.cols()) {
-            cout << "Nie mozna odjac macierze" << endl;
-            return 1;
+        if ((a != tablica3.rows()) || (b != tablica3.cols())) {
+            
+            throw WrongSize();
         }
 
         matrix odjetemacierze(a,b);
@@ -101,8 +119,8 @@ using namespace std;
     matrix matrix::multiply(matrix tablica4) {
 
         if (a != tablica4.rows()) {
-            cout << "Nie mozna pomnozyc" << endl;
-            return 1;
+            
+            throw WrongSize();
         }
 
         matrix mnozonemacierze(a,b);
@@ -144,8 +162,7 @@ using namespace std;
 		plik.open(path, std::ios_base::out);
 		if (!plik.good())
 		{
-			std::cout << "Nie otwarto pliku." << endl;
-			exit(0);
+			throw FileNoOpen();
 		}
 
 		plik << a << "\t" << b << endl;

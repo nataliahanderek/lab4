@@ -1,3 +1,6 @@
+#ifndef matrix_hpp
+#define matrix_hpp
+
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
@@ -25,3 +28,5 @@ class matrix {
     void store(std::string filename, std::string path);
 
 };
+
+#endif

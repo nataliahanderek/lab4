@@ -2,6 +2,6 @@ cmake_minimum_required( VERSION 3.0 )
 
 project(lab_3)
 
-include_directories( ./src ./test ./include )
+include_directories( ./src ./test ./include)
 
-add_executable(test ./test/lab3.cpp ./include/matrix.hpp ./src/matrix.cpp)
+add_executable(test ./src/lab3.cpp ./src/matrix.cpp )
