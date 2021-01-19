@@ -38,7 +38,7 @@ int main() {
     }
 
     cout << "Suma macierzy tablica1 oraz tablica3:" << endl;
-    matrix tablica3(5,5);
+    matrix tablica3(4,5);
     try {
         tablica3.set(2,1,100);
     }
@@ -49,11 +49,11 @@ int main() {
     cout << "+" << endl;
     tablica3.print();
     try {
-        matrix dodanemacierze = tablica1.add(tablica3);
+        matrix dodanemacierze = tablica1 + tablica3;
         cout << "=" << endl;
         dodanemacierze.print();
-        cout << "Liczba wierszy: " << dodanemacierze.rows() << endl;
-        cout << "Liczba kolumn: " << dodanemacierze.cols() << endl;
+        cout << "Liczba wierszy: " << tablica1.rows() << endl;
+        cout << "Liczba kolumn: " << tablica1.cols() << endl;
     }
     catch(const exception& e) {
         std::cerr << e.what() << endl;
@@ -64,7 +64,7 @@ int main() {
     cout << "-" << endl;
     tablica3.print();
     try {
-        matrix odjetemacierze = tablica1.substract(tablica3);
+        matrix odjetemacierze = tablica1 - tablica3;
         cout << "=" << endl;
         odjetemacierze.print();
         cout << "Liczba wiersz: " << odjetemacierze.rows() << endl;
@@ -102,7 +102,7 @@ int main() {
         tablica5.print();
         cout << "*" << endl;
         tablica4.print();
-        matrix mnozonemacierze = tablica5.multiply(tablica4);
+        matrix mnozonemacierze = tablica5 * tablica4;
         cout << "=" << endl;
         mnozonemacierze.print();
         cout << "Liczba wierszy: " << mnozonemacierze.rows() << endl;
@@ -111,6 +111,35 @@ int main() {
     catch(const exception& e) {
         std::cerr << e.what() << endl;
     }
+
+    //cout << "Macierz wypisana operatorem <<:" << endl;
+    //cout << tablica3;
+
+    cout << "Porownanie dwoch macierzy operatorem == oraz !=:" << endl;
+    
+    try {
+        if(tablica1 == tablica1) {
+            cout << "Macierze sa takie same" << endl;
+        }
+        if (tablica1 != tablica3) {
+            cout << "Macierze sa inne" << endl;
+        }
+    }
+    catch(const exception& e) {
+        std::cerr << e.what() << endl;
+    }
+
+    cout << "Inkrementacja macierzy:" << endl;
+
+    ++tablica3;
+    tablica3.print();
+
+    cout << "Deinkrementacja macierzy:" << endl;
+    --tablica3;
+    tablica3.print();
+
+    cout << "Wypisanie wiersza operatorem []:" << endl;
+    tablica3[1];
 
     cout << "Zapisywanie macierzy do pliku" << endl;
     string nazwa;

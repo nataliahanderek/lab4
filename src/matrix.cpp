@@ -76,17 +76,19 @@ class FileNoOpen : public exception {
 
     double matrix::get(int x, int y) {
 
-        if ((x < 0 || x > a) || (y < 0 || y >= b)) {
+        if (x <= rows() && x > 0 && y <= cols() && y > 0) {
              
+            return tab[x-1][y-1];
+        }
+        else {
             throw WrongPoint();
         }
-
-        return tab[x-1][y-1];
+        
     }
 
-    matrix matrix::add(matrix tablica3) {
+    matrix matrix::operator+(matrix &add) {
 
-        if ((a != tablica3.rows()) || (b != tablica3.cols())) {
+        if ((a != add.rows()) || (b != add.cols())) {
 
             throw WrongSize();
         }
@@ -94,15 +96,15 @@ class FileNoOpen : public exception {
         matrix dodanemacierze(a,b);
             for(int i = 0; i < a; i++) {
                 for(int j = 0; j < b; j++){
-                    dodanemacierze.tab[i][j] = tab[i][j] + tablica3.tab[i][j];
+                    dodanemacierze.tab[i][j] = tab[i][j] + add.tab[i][j];
                 }
             }
         return dodanemacierze;
     }
 
-    matrix matrix::substract(matrix tablica3) {
+    matrix matrix::operator-(matrix &susbtract)  {
 
-        if ((a != tablica3.rows()) || (b != tablica3.cols())) {
+        if ((a != susbtract.rows()) || (b != susbtract.cols())) {
             
             throw WrongSize();
         }
@@ -110,15 +112,15 @@ class FileNoOpen : public exception {
         matrix odjetemacierze(a,b);
             for(int i = 0; i < a; i++) {
                 for(int j = 0; j < b; j++){
-                    odjetemacierze.tab[i][j] = tab[i][j] - tablica3.tab[i][j];
+                    odjetemacierze.tab[i][j] = tab[i][j] - susbtract.tab[i][j];
                 }
             }
         return odjetemacierze;
     }
 
-    matrix matrix::multiply(matrix tablica4) {
+    matrix matrix::operator*(matrix &multiply) {
 
-        if (a != tablica4.rows()) {
+        if (a != multiply.rows()) {
             
             throw WrongSize();
         }
@@ -128,10 +130,103 @@ class FileNoOpen : public exception {
             for(int j = 0; j < b; j++) {
                 mnozonemacierze.tab[i][j] = 0;
                 for(int k = 0; k < b; k++) {
-                    mnozonemacierze.tab[i][j] += tab[i][k] * tablica4.tab[k][j];
+                    mnozonemacierze.tab[i][j] += tab[i][k] * multiply.tab[k][j];
                 }
-                return mnozonemacierze;
             }
+        }
+        return mnozonemacierze;
+    }
+/*
+    ostream& operator<<(std::ostream &file, matrix &tablica) {
+        
+        int a = tablica.rows();
+        int b = tablica.cols();
+
+        file << a << " " << b << endl;
+        for(int i = 0; i < a; i++) {
+            for(int j = 0; j < b; j++) {
+                file << tablica[i][j];
+                file << " ";
+            }
+            file << endl;
+        }
+        return file;
+    } */
+
+    bool matrix::operator==(matrix &porow) {
+
+        int a = rows();
+        int b = cols();
+    
+        if ((a != porow.rows()) || (b != porow.cols())) {
+        
+            throw WrongSize();
+        }
+
+        for(int i = 1; i <= a; i++) {
+            for(int j = 1; j <= b; j++) {
+
+                if(this->get(i, j) != porow.get(i, j)) {
+                    return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+    bool matrix::operator!=(matrix &porow) {
+
+        int a = rows();
+        int b = cols();
+    
+        if((a != porow.rows()) || (b != porow.cols())) {
+        
+            throw WrongSize();
+        }
+
+        for(int i = 1; i <= a; i++) {
+            for(int j = 1; j <= b; j++) {
+
+                if(this->get(i, j) != porow.get(i, j)) {
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+    matrix matrix::operator++() {
+    
+        for(int i = 1; i <= rows(); i++) {
+            for(int j = 1; j <= cols(); j++) {
+                double inkrementacja = (1 + get(i,j));
+                set(i,j,inkrementacja);
+            }
+        }
+    }
+
+    matrix matrix::operator--() {
+
+        for(int i = 1; i <= rows(); i++) {
+            for(int j = 1; j <= cols(); j++) {
+                double deinkrementacja = (get(i,j) - 1);
+                set(i,j,deinkrementacja);
+            }
+        }        
+    }
+
+
+    void matrix::operator[](int row)  {
+
+        if (row >= this->rows() || row < 0) {
+            
+            throw WrongSize();
+        } else {
+            for (int i = 0; i < cols(); i++) {
+                cout << tab[row][i] << " ";
+        }
+            cout << endl;
         }
     }
 

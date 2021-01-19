@@ -19,9 +19,15 @@ class matrix {
     matrix(std::string path);
     void set(int x, int y, double val);
     double get(int x, int y);
-    matrix add(matrix tablica3);
-    matrix substract(matrix tablica3);
-    matrix multiply(matrix tablica4);
+    matrix operator+(matrix &add);
+    matrix operator-(matrix &susbtract);
+    matrix operator*(matrix &multiply);
+    //friend ostream& operator<<(std::ostream &file, matrix &tablica);
+    bool operator==(matrix&);
+    void operator[](int row);
+    bool operator!=(matrix&);
+    matrix operator++();
+    matrix operator--();
     int rows();
     int cols();
     void print();
